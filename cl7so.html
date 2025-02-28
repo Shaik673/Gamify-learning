@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 7 Social Studies</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header styles */
+.header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+}
+
+/* Button container styles */
+.chapter-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    padding: 10px;
+}
+
+/* Chapter button styles */
+.chapter-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 200px;
+}
+
+/* Button hover effect */
+.chapter-btn:hover {
+    background-color: #45a049;
+}
+
+/* Chapter content */
+.chapter-content {
+    display: none;
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Quiz container styles */
+.quiz-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+/* Question styles */
+.question-container {
+    margin-bottom: 20px;
+}
+
+.question-container p {
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Options styles */
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.options button {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 500px;
+    margin: 5px auto;
+}
+
+.options button:hover {
+    background-color: #ddd;
+}
+
+/* Timer fixed to the right of the screen */
+.timer {
+    font-size: 20px;
+    color: white;
+    background-color: #e74c3c;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Results section */
+.results {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .chapter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .chapter-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .quiz-container {
+        padding: 15px;
+    }
+
+    .question-container {
+        padding: 15px;
+    }
+
+    .question-container p {
+        font-size: 16px;
+    }
+
+    .options button {
+        font-size: 14px;
+    }
+
+    .timer {
+        font-size: 18px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Class 7 Social Studies</h1>
+    </div>
+
+    <!-- Chapter Buttons -->
+    <div class="chapter-buttons">
+        <button class="chapter-btn" onclick="showChapter('history_pasts')">History: Our Pasts – I</button>
+        <button class="chapter-btn" onclick="showChapter('delhi_sultans')">History: The Delhi Sultans</button>
+        <button class="chapter-btn" onclick="showChapter('civics')">Civics: Social and Political Life</button>
+        <button class="chapter-btn" onclick="showChapter('earth_habitat')">Geography: The Earth – Our Habitat</button>
+    </div>
+
+    <!-- Chapter Content -->
+    <div id="history_pasts" class="chapter-content">
+        <h2>History: Our Pasts – I</h2>
+        <p>Chapter content here...</p>
+        <button onclick="startQuiz('history_pasts')">Start Quiz</button>
+    </div>
+    <div id="delhi_sultans" class="chapter-content">
+        <h2>History: The Delhi Sultans</h2>
+        <p>Chapter content here...</p>
+        <button onclick="startQuiz('delhi_sultans')">Start Quiz</button>
+    </div>
+    <div id="civics" class="chapter-content">
+        <h2>Civics: Social and Political Life</h2>
+        <p>Chapter content here...</p>
+        <button onclick="startQuiz('civics')">Start Quiz</button>
+    </div>
+    <div id="earth_habitat" class="chapter-content">
+        <h2>Geography: The Earth – Our Habitat</h2>
+        <p>Chapter content here...</p>
+        <button onclick="startQuiz('earth_habitat')">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Container -->
+    <div id="quiz-container" class="quiz-container">
+        <h2 id="quiz-title"></h2>
+        <div class="question-container">
+            <p id="question-text"></p>
+            <div class="options">
+                <button onclick="checkAnswer(0)" id="option1"></button>
+                <button onclick="checkAnswer(1)" id="option2"></button>
+                <button onclick="checkAnswer(2)" id="option3"></button>
+                <button onclick="checkAnswer(3)" id="option4"></button>
+            </div>
+        </div>
+        <div class="results" id="quiz-results"></div>
+    </div>
+
+    <div id="timer" class="timer"></div>
+
+    <script>
+        // Chapters Content
+// Chapters Content
+// Chapters Content
+const chapters = {
+    "history_pasts": {
+        title: "History: Our Pasts – I",
+        quiz: [
+            {
+                question: "Who was the first King of the Maurya Dynasty?",
+                options: ["Ashoka", "Chandragupta Maurya", "Bindusara", "Harsha"],
+                correctAnswer: 1
+            },
+            {
+                question: "When did the Maurya Empire begin?",
+                options: ["321 BCE", "350 BCE", "400 BCE", "450 BCE"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which ruler is associated with the spread of Buddhism?",
+                options: ["Ashoka", "Chandragupta Maurya", "Harsha", "Bindusara"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which city was founded by Chandragupta Maurya?",
+                options: ["Pataliputra", "Takshashila", "Kashi", "Delhi"],
+                correctAnswer: 0
+            },
+            {
+                question: "What was the role of 'Dhamma' in Mauryan society?",
+                options: ["Religious teachings", "Cultural expansion", "Spread of democracy", "None of the above"],
+                correctAnswer: 0
+            },
+            {
+                question: "Who were the 'Mlechchhas' according to ancient texts?",
+                options: ["Foreigners", "Soldiers", "Traders", "Noblemen"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which is the capital of the Mauryan Empire?",
+                options: ["Pataliputra", "Delhi", "Agra", "Mathura"],
+                correctAnswer: 0
+            },
+            {
+                question: "What was the Maurya dynasty’s major achievement?",
+                options: ["Unification of India", "Development of trade routes", "Conquering China", "Building the Great Wall"],
+                correctAnswer: 0
+            },
+            {
+                question: "Who defeated Alexander the Great?",
+                options: ["Chandragupta Maurya", "Porus", "Ashoka", "Bimbisara"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which was the official language of the Mauryan Empire?",
+                options: ["Pali", "Sanskrit", "Prakrit", "Aramaic"],
+                correctAnswer: 0
+            },
+            {
+                question: "What is the name of the edict that gives insight into Ashoka’s rule?",
+                options: ["Rock Edicts", "Pillar Edicts", "Copper Plates", "Silver Scrolls"],
+                correctAnswer: 0
+            },
+            {
+                question: "The Mauryan Empire is known for spreading which religion?",
+                options: ["Hinduism", "Buddhism", "Jainism", "Christianity"],
+                correctAnswer: 1
+            },
+            {
+                question: "Who was the first ruler to embrace Buddhism?",
+                options: ["Ashoka", "Chandragupta Maurya", "Bindusara", "Harsha"],
+                correctAnswer: 0
+            },
+            {
+                question: "What was the purpose of Ashoka’s Dhamma?",
+                options: ["To promote non-violence", "To spread trade", "To conquer new territories", "To establish democracy"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which ruler succeeded Chandragupta Maurya?",
+                options: ["Bindusara", "Ashoka", "Harsha", "Bimbisara"],
+                correctAnswer: 0
+            }
+        ]
+    },
+    "delhi_sultans": {
+        title: "History: The Delhi Sultans",
+        quiz: [
+            {
+                question: "Who was the founder of the Delhi Sultanate?",
+                options: ["Qutb-ud-Din Aibak", "Muhammad Ghori", "Iltutmish", "Razia Sultana"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which Sultan built the Qutb Minar?",
+                options: ["Iltutmish", "Qutb-ud-Din Aibak", "Razia Sultana", "Balban"],
+                correctAnswer: 1
+            },
+            {
+                question: "Who was the first female ruler of Delhi Sultanate?",
+                options: ["Razia Sultana", "Begum Shamsa", "Nur Jahan", "Jahanara Begum"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which sultan was known for his military conquests and administrative reforms?",
+                options: ["Iltutmish", "Alauddin Khilji", "Feroze Tughlaq", "Sher Shah Suri"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which Sultan is credited with introducing market reforms?",
+                options: ["Iltutmish", "Alauddin Khilji", "Balban", "Sher Shah Suri"],
+                correctAnswer: 1
+            },
+            {
+                question: "Who was the last Sultan of the Delhi Sultanate?",
+                options: ["Nasir-ud-Din Mahmud", "Sikandar Lodi", "Ibrahim Lodi", "Bahlul Lodi"],
+                correctAnswer: 2
+            },
+            {
+                question: "Which Sultan founded the Lodi Dynasty?",
+                options: ["Ibrahim Lodi", "Bahlul Lodi", "Nasir-ud-Din Mahmud", "Feroze Tughlaq"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which of these is not a Sultanate dynasty?",
+                options: ["Delhi Sultanate", "Mughal Sultanate", "Khilji Dynasty", "Tughlaq Dynasty"],
+                correctAnswer: 1
+            },
+            {
+                question: "What was the primary occupation of the Delhi Sultanate?",
+                options: ["Agriculture", "Commerce", "Military", "Arts"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which Sultanate established the 'Shams-i-Dir' revenue system?",
+                options: ["Alauddin Khilji", "Iltutmish", "Balban", "Feroze Tughlaq"],
+                correctAnswer: 3
+            },
+            {
+                question: "Who introduced the ‘Mihirab’ in the mosque architecture?",
+                options: ["Razia Sultana", "Shamsa Begum", "Iltutmish", "Alauddin Khilji"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which Sultan was famous for his conquests in South India?",
+                options: ["Alauddin Khilji", "Muhammad Ghori", "Sher Shah Suri", "Feroze Tughlaq"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which Sultan initiated the use of 'Tanka' as a currency?",
+                options: ["Iltutmish", "Alauddin Khilji", "Sher Shah Suri", "Bahlul Lodi"],
+                correctAnswer: 1
+            },
+            {
+                question: "Who was the Sultan that established the city of ‘Firozabad’?",
+                options: ["Feroze Tughlaq", "Ibrahim Lodi", "Sher Shah Suri", "Alauddin Khilji"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which Sultan was known for his justice and law enforcement?",
+                options: ["Balban", "Sher Shah Suri", "Alauddin Khilji", "Iltutmish"],
+                correctAnswer: 3
+            }
+        ]
+    },
+    "civics": {
+        title: "Civics: Social and Political Life",
+        quiz: [
+            {
+                question: "What is the main source of political power?",
+                options: ["Government", "People", "Military", "Judiciary"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which of the following is a basic principle of democracy?",
+                options: ["Freedom of Speech", "Freedom to Travel", "Freedom to Protest", "All of the above"],
+                correctAnswer: 3
+            },
+            {
+                question: "Which country has the longest constitution?",
+                options: ["USA", "India", "Canada", "Australia"],
+                correctAnswer: 1
+            },
+            {
+                question: "Who is known as the father of democracy?",
+                options: ["Plato", "Aristotle", "Socrates", "Pericles"],
+                correctAnswer: 3
+            },
+            {
+                question: "Which of these is a form of direct democracy?",
+                options: ["Monarchy", "Presidential System", "Referendum", "Parliamentary System"],
+                correctAnswer: 2
+            },
+            {
+                question: "What does the Constitution of India guarantee?",
+                options: ["Social Justice", "Individual Rights", "Equal Opportunities", "All of the above"],
+                correctAnswer: 3
+            },
+            {
+                question: "What is the purpose of separation of powers?",
+                options: ["To distribute power", "To give more power to the president", "To limit the judiciary", "None of the above"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which article in the Indian Constitution grants Right to Education?",
+                options: ["Article 21", "Article 32", "Article 19", "Article 21A"],
+                correctAnswer: 3
+            },
+            {
+                question: "What is the term used to describe the system of government in India?",
+                options: ["Communism", "Monarchy", "Republic", "Feudalism"],
+                correctAnswer: 2
+            },
+            {
+                question: "Who elects the President of India?",
+                options: ["The Parliament", "The Citizens", "The States", "Electoral College"],
+                correctAnswer: 3
+            },
+            {
+                question: "Which of these is an example of a federal system?",
+                options: ["USA", "India", "Russia", "China"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the role of the Prime Minister in India?",
+                options: ["Head of the State", "Head of the Government", "Member of the Parliament", "Leader of Opposition"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the process called when the government calls for a new election?",
+                options: ["By-election", "General Election", "Plebiscite", "Referendum"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the role of a Citizen in a democracy?",
+                options: ["To vote", "To abide by the laws", "To voice opinion", "All of the above"],
+                correctAnswer: 3
+            },
+            {
+                question: "Which of these can lead to civil disobedience?",
+                options: ["Voting", "Protest", "Appealing to courts", "None of the above"],
+                correctAnswer: 1
+            }
+        ]
+    },
+    "earth_habitat": {
+        title: "Geography: The Earth – Our Habitat",
+        quiz: [
+            {
+                question: "What is the Earth's atmosphere made up of?",
+                options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "All of the above"],
+                correctAnswer: 3
+            },
+            {
+                question: "Which layer of the Earth is known as the mantle?",
+                options: ["Crust", "Core", "Lithosphere", "Asthenosphere"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the main source of energy for Earth?",
+                options: ["The Moon", "The Sun", "Wind", "The Oceans"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is the shape of the Earth?",
+                options: ["Flat", "Sphere", "Oblate Spheroid", "Oval"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the Earth's core made of?",
+                options: ["Iron and Nickel", "Oxygen", "Silicon", "Copper"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which is the largest ocean on Earth?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
+                correctAnswer: 2
+            },
+            {
+                question: "Which of the following is a continent?",
+                options: ["Pacific", "Europe", "Amazon", "None of the above"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which is the deepest ocean trench?",
+                options: ["Mariana Trench", "Java Trench", "Tonga Trench", "Philippine Trench"],
+                correctAnswer: 0
+            },
+            {
+                question: "How many continents are there on Earth?",
+                options: ["5", "6", "7", "8"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the Earth's crust mainly made up of?",
+                options: ["Water", "Soil", "Rocks", "Air"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the process of converting saltwater to freshwater?",
+                options: ["Desalination", "Evaporation", "Distillation", "Filtration"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which of these is a natural satellite of Earth?",
+                options: ["Moon", "Mars", "Saturn", "Sun"],
+                correctAnswer: 0
+            },
+            {
+                question: "What is the imaginary line that divides the Earth into two halves?",
+                options: ["Equator", "Prime Meridian", "Tropic of Cancer", "Tropic of Capricorn"],
+                correctAnswer: 0
+            },
+            {
+                question: "Which of the following is responsible for the Earth's magnetic field?",
+                options: ["Sun", "Magnetic core", "Earth's rotation", "Ozone layer"],
+                correctAnswer: 1
+            }
+        ]
+    }
+};
+
+let currentChapter = "";
+let currentQuestionIndex = 0;
+let timer;
+let timeLeft = 15 * 60; // 15 minutes in seconds
+
+function showChapter(chapter) {
+    document.querySelectorAll('.chapter-content').forEach(ch => ch.style.display = 'none');
+    document.getElementById(chapter).style.display = 'block';
+}
+
+function startQuiz(chapter) {
+    currentChapter = chapter;
+    currentQuestionIndex = 0;
+    document.getElementById('quiz-container').style.display = 'block';
+    document.getElementById('quiz-title').textContent = chapters[chapter].title + " Quiz";
+    loadQuestion();
+    startTimer(15);
+}
+
+function loadQuestion() {
+    const chapter = chapters[currentChapter];
+    const question = chapter.quiz[currentQuestionIndex];
+
+    document.getElementById('question-text').textContent = question.question;
+    
+    for (let i = 0; i < 4; i++) {
+        let optionBtn = document.getElementById('option' + i);
+        optionBtn.textContent = question.options[i];
+        optionBtn.onclick = function() { checkAnswer(i); };
+
+        // Reset button colors
+        optionBtn.style.backgroundColor = "#f0f0f0";
+        optionBtn.disabled = false;
+    }
+
+    document.getElementById("next-btn").style.display = "none"; // Hide Next button
+}
+
+function checkAnswer(selectedOption) {
+    const chapter = chapters[currentChapter];
+    const correctAnswer = chapter.quiz[currentQuestionIndex].correctAnswer;
+
+    for (let i = 0; i < 4; i++) {
+        let optionBtn = document.getElementById('option' + i);
+        optionBtn.disabled = true; // Disable all options after selection
+
+        if (i === correctAnswer) {
+            optionBtn.style.backgroundColor = "green"; // Highlight correct answer in green
+        } else if (i === selectedOption) {
+            optionBtn.style.backgroundColor = "red"; // Highlight incorrect selection in red
+        }
+    }
+
+    document.getElementById("next-btn").style.display = "block"; // Show Next button
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    
+    const chapter = chapters[currentChapter];
+    if (currentQuestionIndex < chapter.quiz.length) {
+        loadQuestion();
+    } else {
+        endQuiz();
+    }
+}
+
+function startTimer(minutes) {
+    timeLeft = minutes * 60;
+    updateTimer();
+    timer = setInterval(function() {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            alert("Time's up!");
+            endQuiz();
+        }
+    }, 1000);
+}
+
+function updateTimer() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+}
+
+function endQuiz() {
+    alert("Quiz over! Thank you for participating.");
+    document.getElementById('quiz-container').style.display = 'none';
+}
+    </script>
+</body>
+</html>

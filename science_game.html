@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Puzzle – Element Matching</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f7f6;
+        }
+
+        .game-container {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #4CAF50;
+        }
+
+        .puzzle {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .elements-list, .symbols-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .element-item, .symbol-item {
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .element-item:hover, .symbol-item:hover {
+            background-color: #ddd;
+        }
+
+        .element-item.selected {
+            background-color: #d4edda;
+        }
+
+        .symbol-item.selected {
+            background-color: #f8d7da;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Science Puzzle: Match Element Names with Symbols</h1>
+        <div class="puzzle">
+            <div class="elements-list" id="elements-list">
+                <h2>Element Names</h2>
+                <div class="element-item" id="oxygen">Oxygen</div>
+                <div class="element-item" id="carbon">Carbon</div>
+                <div class="element-item" id="hydrogen">Hydrogen</div>
+            </div>
+            <div class="symbols-list" id="symbols-list">
+                <h2>Chemical Symbols</h2>
+                <div class="symbol-item" id="symbol-O2">O₂</div>
+                <div class="symbol-item" id="symbol-C">C</div>
+                <div class="symbol-item" id="symbol-H2">H₂</div>
+            </div>
+        </div>
+        <button id="check-button">Check Answers</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        const elementItems = document.querySelectorAll('.element-item');
+        const symbolItems = document.querySelectorAll('.symbol-item');
+        let selectedElement = null;
+
+        elementItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (selectedElement) {
+                    selectedElement.classList.remove('selected');
+                }
+                item.classList.add('selected');
+                selectedElement = item;
+            });
+        });
+
+        symbolItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (selectedElement) {
+                    if (selectedElement.id === 'oxygen' && item.id === 'symbol-O2' || 
+                        selectedElement.id === 'carbon' && item.id === 'symbol-C' || 
+                        selectedElement.id === 'hydrogen' && item.id === 'symbol-H2') {
+                        item.classList.add('selected');
+                        item.style.backgroundColor = '#d4edda';
+                    } else {
+                        item.classList.add('selected');
+                        item.style.backgroundColor = '#f8d7da';
+                    }
+                    selectedElement.classList.remove('selected');
+                    selectedElement = null;
+                }
+            });
+        });
+
+        document.getElementById('check-button').addEventListener('click', () => {
+            let correctCount = 0;
+
+            if (document.getElementById('symbol-O2').classList.contains('selected') && 
+                document.getElementById('oxygen').classList.contains('selected')) {
+                correctCount++;
+            }
+
+            if (document.getElementById('symbol-C').classList.contains('selected') && 
+                document.getElementById('carbon').classList.contains('selected')) {
+                correctCount++;
+            }
+
+            if (document.getElementById('symbol-H2').classList.contains('selected') && 
+                document.getElementById('hydrogen').classList.contains('selected')) {
+                correctCount++;
+            }
+
+            const resultText = correctCount === 3 
+                ? "Congratulations! All answers are correct." 
+                : `You got ${correctCount} out of 3 correct.`;
+
+            document.getElementById('result').textContent = resultText;
+        });
+    </script>
+</body>
+</html>

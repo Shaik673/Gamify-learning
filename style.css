@@ -1,0 +1,157 @@
+/* style.css */
+body {
+    font-family: sans-serif;
+    background: linear-gradient(to right, #29323c, #485563); /* Example gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; /* Remove default margins */
+    overflow: hidden; /* Prevent scrollbars for background animation */
+}
+
+.container {
+    width: 380px;
+    height: 480px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative; /* For positioning the button box */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.form-box {
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+
+.button-box {
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+
+.toggle-btn {
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    font-weight: 500; /* Slightly bolder font */
+    color: #555; /* Slightly darker text color */
+}
+
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right, #ff105f, #ffad06);
+    border-radius: 30px;
+    transition: .5s;
+}
+
+.input-group {
+    top: 180px; /* Adjust as needed */
+    position: absolute;
+    width: 280px;
+    transition: .5s;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.submit-btn {
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto; /* Center the button */
+    background: linear-gradient(to right, #ff105f, #ffad06);
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 600; /* Slightly bolder font-weight */
+    transition: 0.3s; /* Smooth transition for hover effect */
+}
+
+.submit-btn:hover {
+    background: linear-gradient(to right, #e60047, #f09200); /* Slightly darker gradient on hover */
+    transform: scale(1.02); /* Subtle scale on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a small shadow on hover */
+}
+
+.social-btns {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 10px; /* Space between buttons */
+}
+
+.google-btn {
+    background-color: #fff; /* White background */
+    color: #4285F4; /* Google blue */
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;  /* Use flexbox for icon and text */
+    align-items: center; /* Vertically align icon and text */
+    gap: 5px; /* Space between icon and text */
+    transition: background-color 0.2s, color 0.2s; /* Smooth transition for hover */
+}
+
+.google-btn:hover {
+    background-color: #f5f5f5; /* Slightly gray background on hover */
+    color: #3367D6; /* Slightly darker blue on hover */
+    border-color: #ccc; /* Slightly darker border on hover */
+}
+
+.google-btn i {
+    font-size: 16px; /* Adjust icon size as needed */
+}
+
+a {
+    text-decoration: none;
+    color: #777;
+    font-size: 12px;
+    margin-top: 15px;
+    display: block; 
+    text-align: center; 
+}
+
+.input-group label {
+    display: block; 
+    margin-bottom: 5px; 
+    color: #555; 
+}
+
+#register {
+    left: 450px;
+}
+
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(to right, #ff105f, #ffad06);
+    animation: background-animation 10s linear infinite; 
+    z-index: -1;
+}

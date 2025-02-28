@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 7 Mathematics</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and layout styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar ul {
+            list-style: none;
+            padding: 10px;
+            background-color: #333;
+            text-align: center;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Chapter Sections */
+        .chapter {
+            padding: 30px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .chapter p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Quiz Button */
+        .quiz-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .quiz-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Timer */
+        #timer {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Quiz Form */
+        .quiz-container {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            font-size: 18px;
+        }
+
+        .question input {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="#data-handling">Data Handling</a></li>
+            <li><a href="#rational-numbers">Rational Numbers</a></li>
+            <li><a href="#perimeter-area">Perimeter and Area</a></li>
+            <li><a href="#exponents-powers">Exponents and Powers</a></li>
+        </ul>
+    </div>
+
+    <div id="data-handling" class="chapter">
+        <h1>Data Handling</h1>
+        <p>Learn about collecting, organizing, and interpreting data using various methods like bar graphs and pie charts.</p>
+        <a href="#quiz-data-handling" class="quiz-button" onclick="startQuiz('Data Handling')">Take Quiz</a>
+    </div>
+
+    <div id="rational-numbers" class="chapter">
+        <h1>Rational Numbers</h1>
+        <p>Understand rational numbers, their representation, operations, and how they relate to fractions.</p>
+        <a href="#quiz-rational-numbers" class="quiz-button" onclick="startQuiz('Rational Numbers')">Take Quiz</a>
+    </div>
+
+    <div id="perimeter-area" class="chapter">
+        <h1>Perimeter and Area</h1>
+        <p>Study how to calculate the perimeter and area of various geometric shapes such as squares, rectangles, and circles.</p>
+        <a href="#quiz-perimeter-area" class="quiz-button" onclick="startQuiz('Perimeter and Area')">Take Quiz</a>
+    </div>
+
+    <div id="exponents-powers" class="chapter">
+        <h1>Exponents and Powers</h1>
+        <p>Learn about exponents, powers, and their use in simplifying expressions and solving problems.</p>
+        <a href="#quiz-exponents-powers" class="quiz-button" onclick="startQuiz('Exponents and Powers')">Take Quiz</a>
+    </div>
+
+    <!-- Quiz Page -->
+    <div id="quiz-page" class="quiz-container" style="display:none;">
+        <h1 id="quiz-title"></h1>
+        <p id="timer"></p>
+        <form id="quizForm">
+            <!-- Quiz questions will be injected here dynamically -->
+            <button type="submit">Submit Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        // Quiz Timer
+        let timerElement = document.getElementById('timer');
+        let timeRemaining = 15 * 60; // 15 minutes in seconds
+        let quizPage = document.getElementById('quiz-page');
+        let quizTitle = document.getElementById('quiz-title');
+
+        // Array of Questions for Class 7 Quizzes
+        const quizQuestions = {
+            'Data Handling': [
+                {question: "1. What is the mean of 5, 7, 8, 10, 12?", options: ["8", "7", "10", "9"], correct: 0},
+                {question: "2. Which of the following is a correct way to represent data?", options: ["Pie chart", "Bar graph", "Both", "None"], correct: 2},
+                {question: "3. What does the median represent?", options: ["The middle value", "The sum of all values", "The average of all values", "None of these"], correct: 0},
+                {question: "4. Which of the following is an example of continuous data?", options: ["Height of a person", "Number of students", "Number of cars", "All of these"], correct: 0},
+                {question: "5. In a bar graph, what do the bars represent?", options: ["Data values", "Categories", "Both", "None"], correct: 0},
+                {question: "6. What is a mode in a set of data?", options: ["The most frequent value", "The least frequent value", "The middle value", "The sum of all values"], correct: 0},
+                {question: "7. How do you represent data in a pie chart?", options: ["In percentage", "In frequency", "In numerical form", "None of these"], correct: 0},
+                {question: "8. What is the first step in data handling?", options: ["Data collection", "Data analysis", "Data presentation", "None of these"], correct: 0},
+                {question: "9. Which type of chart is used for comparing multiple categories?", options: ["Bar chart", "Pie chart", "Line graph", "None of these"], correct: 0},
+                {question: "10. Which of these is NOT a measure of central tendency?", options: ["Mean", "Median", "Range", "Mode"], correct: 2},
+                {question: "11. What does a histogram represent?", options: ["Categorical data", "Continuous data", "Time series data", "None of these"], correct: 1},
+                {question: "12. In data collection, what is a sample?", options: ["A complete data set", "A small part of the data", "The average of data", "None of these"], correct: 1},
+                {question: "13. What is frequency distribution?", options: ["Arranging data in a table", "Counting the number of occurrences of each value", "Both", "None"], correct: 1},
+                {question: "14. What is the total number of degrees in a pie chart?", options: ["100", "360", "180", "None"], correct: 1},
+                {question: "15. What is the purpose of a line graph?", options: ["To show changes over time", "To compare categories", "To display relationships", "None"], correct: 0}
+            ],
+            'Rational Numbers': [
+                {question: "1. Which of the following is a rational number?", options: ["√2", "π", "1/2", "√3"], correct: 2},
+                {question: "2. Which of the following numbers is NOT a rational number?", options: ["2/3", "4", "π", "-7"], correct: 2},
+                {question: "3. What is the reciprocal of 3/4?", options: ["4/3", "1/3", "3/4", "None"], correct: 0},
+                {question: "4. What is the result of adding -5/6 + 7/6?", options: ["2/6", "-2/6", "12/6", "None"], correct: 0},
+                {question: "5. How do you multiply two rational numbers?", options: ["Multiply the numerators and denominators", "Add the numerators and denominators", "Subtract the numerators", "None"], correct: 0},
+                {question: "6. What is the decimal equivalent of -3/5?", options: ["-0.6", "-0.3", "0.6", "0.3"], correct: 0},
+                {question: "7. What is the difference between two rational numbers?", options: ["Subtract the numerators", "Add the numerators", "Subtract the numerators and denominators", "None"], correct: 0},
+                {question: "8. Which of these is a rational number?", options: ["√2", "π", "1.5", "√3"], correct: 2},
+                {question: "9. What is the result of dividing -9/5 by 3?", options: ["-3/5", "-9/15", "-3/15", "None"], correct: 1},
+                {question: "10. What is the sum of 1/4 and 2/3?", options: ["5/7", "11/12", "5/12", "None"], correct: 1},
+                {question: "11. Which operation cannot be performed on rational numbers?", options: ["Addition", "Subtraction", "Multiplication", "None"], correct: 3},
+                {question: "12. How do you simplify the expression 6/8 + 3/4?", options: ["Simplify before adding", "Add the fractions and then simplify", "Multiply the fractions", "None"], correct: 1},
+                {question: "13. What is the result of multiplying -3/4 × 2/5?", options: ["-6/20", "6/20", "-6/10", "None"], correct: 0},
+                {question: "14. What is the reciprocal of -7?", options: ["-1/7", "1/7", "-7", "None"], correct: 0},
+                {question: "15. Which of the following is an example of a rational number?", options: ["√5", "π", "4/7", "√2"], correct: 2}
+            ],
+            'Perimeter and Area': [
+                // Add questions for Perimeter and Area here following the same pattern
+                // Example: 
+                {question: "1. What is the formula for the perimeter of a rectangle?", options: ["2l + 2w", "l × w", "l + w", "None"], correct: 0},
+                // Add the rest of the questions for this chapter
+            ],
+            'Exponents and Powers': [
+                // Add questions for Exponents and Powers here following the same pattern
+                // Example: 
+                {question: "1. What is 2 raised to the power of 3?", options: ["6", "8", "9", "7"], correct: 1},
+                // Add the rest of the questions for this chapter
+            ]
+        };
+
+        // Timer function
+        function startTimer() {
+            let countdown = setInterval(function () {
+                if (timeRemaining <= 0) {
+                    clearInterval(countdown);
+                    alert("Time's up!");
+                    submitQuiz();
+                } else {
+                    let minutes = Math.floor(timeRemaining / 60);
+                    let seconds = timeRemaining % 60;
+                    timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    timeRemaining--;
+                }
+            }, 1000);
+        }
+
+        // Function to initialize quiz for a chapter
+        function startQuiz(chapter) {
+            quizPage.style.display = 'block';
+            quizTitle.textContent = `${chapter} Quiz`;
+
+            const questions = quizQuestions[chapter];
+            const quizForm = document.getElementById('quizForm');
+            quizForm.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question');
+                questionDiv.innerHTML = `
+                    <p>${q.question}</p>
+                    ${q.options.map((option, i) => `
+                        <label>
+                            <input type="radio" name="question${index}" value="${i}">
+                            ${option}
+                        </label><br>
+                    `).join('')}
+                `;
+                quizForm.appendChild(questionDiv);
+            });
+
+            startTimer();
+        }
+
+        // Function to handle quiz submission
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            let score = 0;
+
+            Array.from(form.elements).forEach(input => {
+                if (input.type === 'radio' && input.checked) {
+                    const questionIndex = parseInt(input.name.replace('question', ''));
+                    const answerIndex = parseInt(input.value);
+                    if (quizQuestions[quizTitle.textContent.split(' ')[0]][questionIndex].correct === answerIndex) {
+                        score++;
+                    }
+                }
+            });
+
+            alert(`You scored ${score} out of 15.`);
+            location.reload();
+        }
+
+        // Event listener for quiz submission
+        document.getElementById('quizForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            submitQuiz();
+        });
+    </script>
+</body>
+</html>
+

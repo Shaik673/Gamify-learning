@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="social.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="left"></div>
+            <div class="middle">
+                <p><a href="">Home</a></p>
+                <p><a href="">About</a></p>
+                <p><a href="">Courses</a></p>
+                <p><a href="">Test</a></p>
+            </div>
+            <div class="right">
+                <i class="fa-solid fa-user-graduate"></i>
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </nav>
+    </header><hr style="color: #000">
+    <section class="page1">
+        <div class="title">
+            <h1 style="font-size: 35px;">SOCIAL STUDIES</h1>
+            <p>Social studies teaches us to understand the world’s complexities,</p>
+            <p>connections between societies & our role in shaping a better future.</p>
+        </div>
+        <div class="classes">
+            <div class="container" onmouseover="increase()" onmouseout="decrease()"><a href="cl6so.html">
+                <h3>Class 6</h3>
+                <p>Civics: Understanding Diversity</p>
+                <p>History: What, Where, How, and When?</p>
+                <p>Geography: The Earth in the Solar System</p>
+                <p>History: From Hunting-Gathering to Growing Food </p>
+                <img src="img1.jpg" alt="" height="1px" id="mat"></a>
+            </div>
+            <div class="container" onmouseover="increase()" onmouseout="decrease()"><a href="cl7so.html">
+                <h3>Class 7</h3>
+                <p>History: Our Pasts – I</p>
+                <p>History: The Delhi Sultans</p>
+                <p>Civics: Social and Political Life</p>
+                <p>Geography: The Earth – Our Habitat</p>
+                <img src="img2.jpg" alt="" height="1px" id="mat"></a>
+            </div>
+            <div class="container" onmouseover="increase()" onmouseout="decrease()"><a href="cl8so.html">
+                <h3>Class 8</h3>
+                <p>History: The Mughal Empire</p>
+                <p>History: How, When, and Where?</p>
+                <p>Geography: Resources and Development</p>
+                <p>Civics: Understanding Our Criminal Justice System</p>
+                <img src="img3.jpg" alt="" height="1px" id="mat"></a>
+            </div>
+        </div>
+    </section>
+    <section class="page2">
+
+    </section>
+    <footer style="margin-top: 7rem; background-color:#010406; color:#fff">
+        <div class="foot1">
+            <div class="box1 box">
+                <h2><a href="" style="color: #fff;">Edu<span style="color: #00eeff;">Vertos</span><span style="color: #0ef;">Hub</span></a></h2>
+                <p style="margin-top: 1rem;">Edu Vertos is designed to transform</p>
+                <p>middle-school learning into an engaging</p>
+                <p>& interactive experience. By integrating</p>
+                <p>gamified quizzes, animated video lectures,</p>
+                <p>& real-time progress tracking, the platform</p>
+                <p>ensures that students not only grasp the</p>
+                <p>mathematical concepts effectively.</p>
+            </div>
+            <div class="box2 box">
+                <h2><a href="" style="color: #fff;">Permanent Links</a></h2>
+                <ul>
+                    <li style="margin-top: 1rem;">Home</li>
+                    <li>Maths Quiz</li>
+                    <li>Science Quiz</li>
+                    <li>Social Quiz</li>
+                    <li>G.K Quiz</li>
+                    <li>Mystery Puzzle</li>
+                    <li>Leaderboards</li>
+                </ul>
+            </div>
+            <div class="box3 box">
+                <h2><a href="" style="color: #fff;">Support</a></h2>
+                <ul>
+                    <li style="margin-top: 1rem;">Privacy Policy</li>
+                    <li>Terms & Conditions</li>
+                    <li>FAQ</li>
+                    <li>Help</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="box4 box">
+                <h2><a href="" style="color: #fff;">Contact Us</a></h2>
+                <div class="contact" style="margin-top: 1rem;">
+                    <i class='bx bxs-phone' style='color:#00eeff'></i>
+                    <p>+91- 9392952276</p>
+                </div>
+                <div class="contact" style="margin-bottom: 1rem;">
+                    <i class='bx bxs-envelope' style='color:#00eeff'></i>
+                    <p>eduvertos777@gmail.com</p>
+                </div>
+                <h2><a href="" style="color: #fff;">Follow Us</a></h2>
+                <div class="icons" style="font-size: 40px;">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-instagram' ></i></a>
+                    <a href="#"><i class='bx bxl-whatsapp' ></i></a>
+                    <a href="#"><i class='bx bxl-twitter' ></i></a>
+                </div>
+            </div>
+        </div><hr style="margin: 3rem;">
+        <div class="foot2">
+            <p>copyright &copy; 2024 EduVertos: All Rights Reserved</p>
+        </div>
+    </footer>
+    <script>
+        var top = 0;
+        var height2 = 1;
+        var add = 2;
+        var intervalID = 0;
+        function increase() {
+            clearInterval(intervalID);
+            intervalID = setInterval(visible, 10);
+        }
+        function decrease(){
+            clearInterval(intervalID);
+            intervalID = setInterval(non_visible, 10);
+        }
+        function visible(){
+            if(height2 < 100){
+                top += add;
+                height2 += add;
+                document.getElementById('mat').style.marginTop = top;
+                document.getElementById('mat').style.opacity = 1;
+                document.getElementById('mat').style.height = height2;
+            } else{
+                clearInterval(intervalID);
+            }
+        }
+        function non_visible(){
+            if(height2 > 1){
+                top -= add;
+                height2 -= add;
+                document.getElementById('mat').style.height = height2;
+                document.getElementById('container').style.marginTop = top;
+            } else{
+                document.getElementById('mat').style.opacity = 0;
+                clearInterval(intervalID);
+            }
+        }
+    </script>
+</body>
+</html>

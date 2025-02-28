@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 8 Mathematics</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and layout styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar ul {
+            list-style: none;
+            padding: 10px;
+            background-color: #333;
+            text-align: center;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Chapter Sections */
+        .chapter {
+            padding: 30px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .chapter p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Quiz Button */
+        .quiz-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .quiz-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Timer */
+        #timer {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Quiz Form */
+        .quiz-container {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            font-size: 18px;
+        }
+
+        .question input {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="#factorizations">Factorizations</a></li>
+            <li><a href="#practical-geometry">Practical Geometry</a></li>
+            <li><a href="#linear-equations">Linear Equations in One Variable</a></li>
+            <li><a href="#quadrilaterals">Understanding Quadrilaterals</a></li>
+        </ul>
+    </div>
+
+    <div id="factorizations" class="chapter">
+        <h1>Factorizations</h1>
+        <p>Learn the method of factorization of algebraic expressions and how to factorize quadratic expressions.</p>
+        <a href="#quiz-factorizations" class="quiz-button" onclick="startQuiz('Factorizations')">Take Quiz</a>
+    </div>
+
+    <div id="practical-geometry" class="chapter">
+        <h1>Practical Geometry</h1>
+        <p>Understand the principles of practical geometry, including constructing triangles and circles using a compass and ruler.</p>
+        <a href="#quiz-practical-geometry" class="quiz-button" onclick="startQuiz('Practical Geometry')">Take Quiz</a>
+    </div>
+
+    <div id="linear-equations" class="chapter">
+        <h1>Linear Equations in One Variable</h1>
+        <p>Study linear equations in one variable and learn to solve them using various methods such as substitution and elimination.</p>
+        <a href="#quiz-linear-equations" class="quiz-button" onclick="startQuiz('Linear Equations in One Variable')">Take Quiz</a>
+    </div>
+
+    <div id="quadrilaterals" class="chapter">
+        <h1>Understanding Quadrilaterals</h1>
+        <p>Explore the properties of different types of quadrilaterals and their geometric properties, including squares, rectangles, and rhombuses.</p>
+        <a href="#quiz-quadrilaterals" class="quiz-button" onclick="startQuiz('Understanding Quadrilaterals')">Take Quiz</a>
+    </div>
+
+    <!-- Quiz Page -->
+    <div id="quiz-page" class="quiz-container" style="display:none;">
+        <h1 id="quiz-title"></h1>
+        <p id="timer"></p>
+        <form id="quizForm">
+            <!-- Quiz questions will be injected here dynamically -->
+            <button type="submit">Submit Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        // Quiz Timer
+        let timerElement = document.getElementById('timer');
+        let timeRemaining = 15 * 60; // 15 minutes in seconds
+        let quizPage = document.getElementById('quiz-page');
+        let quizTitle = document.getElementById('quiz-title');
+
+        // Array of Questions for Class 8 Quizzes
+        const quizQuestions = {
+            'Factorizations': [
+                {question: "1. What is the factorization of x² - 9?", options: ["(x + 3)(x - 3)", "(x + 3)(x + 3)", "(x - 3)(x - 3)", "None of these"], correct: 0},
+                {question: "2. Which of the following is a common factor of 2x² + 4x?", options: ["2x", "x", "2", "None"], correct: 0},
+                {question: "3. What is the factorization of x² + 5x + 6?", options: ["(x + 3)(x + 2)", "(x + 6)(x + 1)", "(x + 5)(x + 6)", "None of these"], correct: 0},
+                {question: "4. What is the greatest common factor of 3x + 9?", options: ["3", "9", "x", "None"], correct: 0},
+                {question: "5. How do you factorize x² + 7x + 10?", options: ["(x + 5)(x + 2)", "(x + 2)(x + 5)", "(x + 10)(x + 1)", "None of these"], correct: 0},
+                {question: "6. What is the factorization of 4x² - 25?", options: ["(2x - 5)(2x + 5)", "(4x - 5)(x + 5)", "(2x + 5)(2x - 5)", "None"], correct: 0},
+                {question: "7. Which of the following is a perfect square trinomial?", options: ["x² + 10x + 25", "x² + 7x + 12", "x² + 6x + 9", "None"], correct: 0},
+                {question: "8. What is the factor of x² - 16?", options: ["(x - 4)(x + 4)", "(x - 8)(x + 8)", "(x - 4)(x - 4)", "None"], correct: 0},
+                {question: "9. What is the factorization of 9x² - 24x + 16?", options: ["(3x - 4)(3x - 4)", "(9x - 4)(x + 4)", "(x + 4)(x + 2)", "None"], correct: 0},
+                {question: "10. What is the common factor of 3x² + 6x?", options: ["3x", "x", "6", "None"], correct: 0},
+                {question: "11. What is the factorization of 2x² - 7x + 3?", options: ["(2x - 3)(x - 1)", "(x - 3)(x - 2)", "(x + 3)(x - 1)", "None"], correct: 0},
+                {question: "12. Which of the following is the factorization of 16x² - 25?", options: ["(4x - 5)(4x + 5)", "(2x - 5)(2x + 5)", "(8x - 5)(2x + 5)", "None"], correct: 0},
+                {question: "13. How do you factorize 3x² - 12x?", options: ["3x(x - 4)", "x(3x - 4)", "3x(x + 4)", "None"], correct: 0},
+                {question: "14. What is the factor of x² + 3x - 10?", options: ["(x - 2)(x + 5)", "(x + 5)(x - 2)", "(x - 1)(x + 10)", "None"], correct: 0},
+                {question: "15. Which of the following is a difference of squares?", options: ["x² - 4", "x² + 4", "x² + 9", "None"], correct: 0}
+            ],
+            'Practical Geometry': [
+            {question: "1. How do you construct a triangle with sides 5 cm, 6 cm, and 7 cm?", options: ["Using a protractor", "Using a compass", "Using a ruler", "All of these"], correct: 3},
+            {question: "2. What is the first step in constructing a triangle?", options: ["Draw the base", "Draw the height", "Mark the angles", "None of these"], correct: 0},
+            {question: "3. Which instrument is used to measure angles in practical geometry?", options: ["Protractor", "Ruler", "Compass", "None"], correct: 0},
+            {question: "4. What is the construction of an equilateral triangle?", options: ["All sides equal", "All angles equal", "One angle 90°", "None"], correct: 0},
+            {question: "5. How do you bisect a line segment?", options: ["Draw a perpendicular line", "Use a compass", "Use a protractor", "None"], correct: 1},
+            {question: "6. Which of these is used to draw a perpendicular bisector?", options: ["Compass", "Ruler", "Protractor", "All of these"], correct: 0},
+            {question: "7. How do you construct a square?", options: ["Using equal sides and right angles", "Using a compass", "Drawing two equal diagonals", "None of these"], correct: 0},
+            {question: "8. What is used to mark angles of 90° in geometry?", options: ["Protractor", "Compass", "Ruler", "All of these"], correct: 0},
+            {question: "9. Which shape has four equal sides and four right angles?", options: ["Rectangle", "Square", "Parallelogram", "Trapezium"], correct: 1},
+            {question: "10. What is the first step to construct a perpendicular from a point to a line?", options: ["Draw a line at any angle", "Use a protractor", "Draw arcs on both sides", "None"], correct: 2},
+            {question: "11. How do you construct a right-angled triangle?", options: ["Using Pythagoras theorem", "Using compass and protractor", "Using equal sides", "None"], correct: 1},
+            {question: "12. What is used to copy an angle?", options: ["Protractor", "Compass", "Ruler", "Both protractor and compass"], correct: 3},
+            {question: "13. How do you construct a circle?", options: ["Using a protractor", "Using a compass", "Using a ruler", "None"], correct: 1},
+            {question: "14. How do you draw an angle of 60°?", options: ["Using a protractor", "Using a compass", "Both of the above", "None"], correct: 2},
+            {question: "15. Which construction requires drawing a perpendicular line?", options: ["Constructing a right-angle", "Drawing a triangle", "Bisecting a line", "None"], correct: 0}
+        ],
+        'Linear Equations in One Variable': [
+            {question: "1. What is the solution to the equation 2x + 3 = 7?", options: ["x = 2", "x = 3", "x = 4", "x = 5"], correct: 0},
+            {question: "2. What is the value of x in the equation 3x - 4 = 11?", options: ["x = 3", "x = 5", "x = 7", "x = 8"], correct: 1},
+            {question: "3. What is the solution to 4x + 1 = 9?", options: ["x = 2", "x = 3", "x = 1", "x = 4"], correct: 0},
+            {question: "4. If 2x - 5 = 11, what is x?", options: ["x = 8", "x = 7", "x = 5", "x = 6"], correct: 0},
+            {question: "5. Solve for x: x/5 + 2 = 6", options: ["x = 20", "x = 30", "x = 25", "x = 35"], correct: 0},
+            {question: "6. What is the first step in solving 5x + 3 = 23?", options: ["Subtract 3 from both sides", "Multiply both sides by 5", "Divide both sides by 5", "None"], correct: 0},
+            {question: "7. What is the solution of x - 5 = 8?", options: ["x = 15", "x = 13", "x = 12", "x = 10"], correct: 1},
+            {question: "8. What is the value of x in the equation 6x + 4 = 28?", options: ["x = 4", "x = 3", "x = 5", "x = 6"], correct: 0},
+            {question: "9. Solve for x: 3(x + 4) = 18", options: ["x = 2", "x = 3", "x = 4", "x = 5"], correct: 0},
+            {question: "10. What is the solution to 2x + 5 = 19?", options: ["x = 7", "x = 8", "x = 6", "x = 9"], correct: 0},
+            {question: "11. What is the solution to x + 2 = 5?", options: ["x = 3", "x = 2", "x = 4", "x = 1"], correct: 0},
+            {question: "12. What is the value of x in the equation 7x - 3 = 18?", options: ["x = 3", "x = 2", "x = 4", "x = 5"], correct: 0},
+            {question: "13. Solve for x: 5x = 20", options: ["x = 4", "x = 3", "x = 5", "x = 6"], correct: 0},
+            {question: "14. What is the value of x in the equation 9x + 2 = 29?", options: ["x = 3", "x = 2", "x = 4", "x = 5"], correct: 0},
+            {question: "15. Solve for x: x - 7 = 15", options: ["x = 22", "x = 8", "x = 25", "x = 28"], correct: 0}
+        ],
+        'Understanding Quadrilaterals': [
+            {question: "1. What is a quadrilateral?", options: ["A figure with 3 sides", "A figure with 4 sides", "A figure with 5 sides", "None of these"], correct: 1},
+            {question: "2. How many types of quadrilaterals are there?", options: ["5", "6", "4", "3"], correct: 2},
+            {question: "3. Which of these is a type of quadrilateral?", options: ["Square", "Triangle", "Circle", "None"], correct: 0},
+            {question: "4. A square is a type of?", options: ["Parallelogram", "Triangle", "Circle", "None"], correct: 0},
+            {question: "5. What is the sum of the interior angles of a quadrilateral?", options: ["180°", "360°", "90°", "270°"], correct: 1},
+            {question: "6. A rhombus has equal angles?", options: ["True", "False", "Only in some cases", "None"], correct: 1},
+            {question: "7. Which of the following has opposite sides equal and parallel?", options: ["Rectangle", "Circle", "Triangle", "None"], correct: 0},
+            {question: "8. A trapezium has", options: ["No parallel sides", "One pair of parallel sides", "Two pairs of parallel sides", "None"], correct: 1},
+            {question: "9. What is the property of a square?", options: ["All sides are equal", "All angles are 90°", "Diagonals bisect each other", "All of these"], correct: 3},
+            {question: "10. Which quadrilateral has opposite angles equal?", options: ["Rhombus", "Square", "Rectangle", "All of these"], correct: 3},
+            {question: "11. What is the sum of exterior angles of any quadrilateral?", options: ["360°", "180°", "90°", "270°"], correct: 0},
+            {question: "12. A rectangle has how many diagonals?", options: ["2", "4", "6", "8"], correct: 0},
+            {question: "13. The diagonals of a rhombus", options: ["Bisect each other at 90°", "Are parallel", "Are equal", "None"], correct: 0},
+            {question: "14. A kite has", options: ["Two pairs of adjacent sides equal", "Opposite sides equal", "Four equal angles", "None"], correct: 0},
+            {question: "15. A parallelogram has", options: ["Opposite sides equal", "Adjacent sides equal", "No parallel sides", "None"], correct: 0}
+        ]
+    };
+
+    function startTimer() {
+        let countdown = setInterval(function () {
+            if (timeRemaining <= 0) {
+                clearInterval(countdown);
+                alert("Time's up!");
+                submitQuiz();
+            } else {
+                let minutes = Math.floor(timeRemaining / 60);
+                let seconds = timeRemaining % 60;
+                timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                timeRemaining--;
+            }
+        }, 1000);
+    }
+
+    // Function to initialize quiz for a chapter
+    function startQuiz(chapter) {
+        quizPage.style.display = 'block';
+        quizTitle.textContent = `${chapter} Quiz`;
+
+        const questions = quizQuestions[chapter];
+        const quizForm = document.getElementById('quizForm');
+        quizForm.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question');
+            questionDiv.innerHTML = `
+                <p>${q.question}</p>
+                ${q.options.map((option, i) => `
+                    <label>
+                        <input type="radio" name="question${index}" value="${i}">
+                        ${option}
+                    </label><br>
+                `).join('')}
+            `;
+            quizForm.appendChild(questionDiv);
+        });
+
+        startTimer();
+    }
+
+    // Function to handle quiz submission
+    function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        let score = 0;
+
+        Array.from(form.elements).forEach(input => {
+            if (input.type === 'radio' && input.checked) {
+                const questionIndex = parseInt(input.name.replace('question', ''));
+                const answerIndex = parseInt(input.value);
+                if (quizQuestions[quizTitle.textContent.split(' ')[0]][questionIndex].correct === answerIndex) {
+                    score++;
+                }
+            }
+        });
+
+        alert(`You scored ${score} out of 15.`);
+        location.reload();
+    }
+
+    // Event listener for quiz submission
+    document.getElementById('quizForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        submitQuiz();
+    });
+        </script>
+    </body>
+</html>
+    

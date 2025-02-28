@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 6 Mathematics</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and layout styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Navbar Styling */
+        .navbar ul {
+            list-style: none;
+            padding: 10px;
+            background-color: #333;
+            text-align: center;
+        }
+
+        .navbar ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* Chapter Sections */
+        .chapter {
+            padding: 30px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .chapter p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Quiz Button */
+        .quiz-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .quiz-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Timer */
+        #timer {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Quiz Form */
+        .quiz-container {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            font-size: 18px;
+        }
+
+        .question input {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <ul>
+            <li><a href="#algebra">Algebra</a></li>
+            <li><a href="#mensuration">Mensuration</a></li>
+            <li><a href="#numbers">Playing with Numbers</a></li>
+            <li><a href="#fractions">Fractions & Decimals</a></li>
+        </ul>
+    </div>
+
+    <div id="algebra" class="chapter">
+        <h1>Algebra</h1>
+        <p>Introduction to algebra, basic operations, and solving simple equations.</p>
+        <a href="#quiz-algebra" class="quiz-button" onclick="startQuiz('Algebra')">Take Quiz</a>
+    </div>
+
+    <div id="mensuration" class="chapter">
+        <h1>Mensuration</h1>
+        <p>Learn about perimeter, area, and volume of different shapes.</p>
+        <a href="#quiz-mensuration" class="quiz-button" onclick="startQuiz('Mensuration')">Take Quiz</a>
+    </div>
+
+    <div id="numbers" class="chapter">
+        <h1>Playing with Numbers</h1>
+        <p>Understanding factors, multiples, prime numbers, and divisibility rules.</p>
+        <a href="#quiz-numbers" class="quiz-button" onclick="startQuiz('Playing with Numbers')">Take Quiz</a>
+    </div>
+
+    <div id="fractions" class="chapter">
+        <h1>Fractions & Decimals</h1>
+        <p>Introduction to fractions and decimals, their operations, and conversions.</p>
+        <a href="#quiz-fractions" class="quiz-button" onclick="startQuiz('Fractions & Decimals')">Take Quiz</a>
+    </div>
+
+    <!-- Quiz Page -->
+    <div id="quiz-page" class="quiz-container" style="display:none;">
+        <h1 id="quiz-title"></h1>
+        <p id="timer"></p>
+        <form id="quizForm">
+            <div class="question">
+                <p>1. What is the value of x in the equation: 2x + 3 = 7?</p>
+                <input type="radio" name="q1" value="1"> x = 2<br>
+                <input type="radio" name="q1" value="2"> x = 3<br>
+                <input type="radio" name="q1" value="3"> x = 4<br>
+                <input type="radio" name="q1" value="4"> x = 1<br>
+            </div>
+            <div class="question">
+                <p>2. What is the perimeter of a rectangle with length 5cm and width 3cm?</p>
+                <input type="radio" name="q2" value="1"> 16cm<br>
+                <input type="radio" name="q2" value="2"> 15cm<br>
+                <input type="radio" name="q2" value="3"> 20cm<br>
+                <input type="radio" name="q2" value="4"> 18cm<br>
+            </div>
+            <!-- Add more questions here -->
+            <button type="submit">Submit Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        // Quiz Timer
+let timerElement = document.getElementById('timer');
+let timeRemaining = 15 * 60; // 15 minutes in seconds
+let quizPage = document.getElementById('quiz-page');
+let quizTitle = document.getElementById('quiz-title');
+
+// Array of Questions for the Quiz (you can customize each chapter's questions here)
+const quizQuestions = [
+    {
+        question: "1. What is the value of x in the equation: 2x + 3 = 7?",
+        options: ["x = 2", "x = 3", "x = 4", "x = 1"],
+        correct: 0 // Correct answer is option 1 (x = 2)
+    },
+    {
+        question: "2. What is the perimeter of a rectangle with length 5cm and width 3cm?",
+        options: ["16cm", "15cm", "20cm", "18cm"],
+        correct: 0 // Correct answer is option 1 (16cm)
+    },
+    {
+        question: "3. What is 2 + 2?",
+        options: ["3", "4", "5", "6"],
+        correct: 1 // Correct answer is option 2 (4)
+    },
+    {
+        question: "4. Which of the following is a prime number?",
+        options: ["4", "6", "7", "9"],
+        correct: 2 // Correct answer is option 3 (7)
+    },
+    {
+        question: "5. What is the area of a square with side length 4cm?",
+        options: ["16cm²", "12cm²", "20cm²", "10cm²"],
+        correct: 0 // Correct answer is option 1 (16cm²)
+    },
+    {
+        question: "6. Which of these is a multiple of 5?",
+        options: ["12", "20", "18", "14"],
+        correct: 1 // Correct answer is option 2 (20)
+    },
+    {
+        question: "7. What is 5/10 as a decimal?",
+        options: ["0.5", "0.2", "0.1", "1.0"],
+        correct: 0 // Correct answer is option 1 (0.5)
+    },
+    {
+        question: "8. Which of the following is a factor of 12?",
+        options: ["2", "3", "4", "All of the above"],
+        correct: 3 // Correct answer is option 4 (All of the above)
+    },
+    {
+        question: "9. What is the decimal representation of 1/4?",
+        options: ["0.25", "0.75", "0.5", "1.0"],
+        correct: 0 // Correct answer is option 1 (0.25)
+    },
+    {
+        question: "10. What is the volume of a cube with side length 3cm?",
+        options: ["9cm³", "27cm³", "30cm³", "12cm³"],
+        correct: 1 // Correct answer is option 2 (27cm³)
+    },
+    {
+        question: "11. Which of these is a fraction?",
+        options: ["1", "2.5", "1/2", "3.0"],
+        correct: 2 // Correct answer is option 3 (1/2)
+    },
+    {
+        question: "12. What is 1/2 + 1/4?",
+        options: ["1/2", "3/4", "5/6", "2/3"],
+        correct: 1 // Correct answer is option 2 (3/4)
+    },
+    {
+        question: "13. What is the perimeter of a triangle with sides 3cm, 4cm, and 5cm?",
+        options: ["12cm", "13cm", "14cm", "15cm"],
+        correct: 1 // Correct answer is option 2 (13cm)
+    },
+    {
+        question: "14. Which of the following is a decimal number?",
+        options: ["1", "2.5", "3", "4"],
+        correct: 1 // Correct answer is option 2 (2.5)
+    },
+    {
+        question: "15. What is the sum of 0.25 and 0.75?",
+        options: ["1.0", "1.5", "1.75", "0.5"],
+        correct: 0 // Correct answer is option 1 (1.0)
+    }
+];
+
+// Function to render quiz questions dynamically
+function renderQuizQuestions() {
+    const quizForm = document.getElementById('quizForm');
+    quizForm.innerHTML = ''; // Clear previous content
+
+    quizQuestions.forEach((item, index) => {
+        let questionHTML = `
+            <div class="question">
+                <p>${item.question}</p>
+                ${item.options.map((option, i) => {
+                    return `<input type="radio" name="q${index}" value="${i}"> ${option}<br>`;
+                }).join('')}
+            </div>
+        `;
+        quizForm.innerHTML += questionHTML;
+    });
+}
+
+// Timer function
+function updateTimer() {
+    let minutes = Math.floor(timeRemaining / 60);
+    let seconds = timeRemaining % 60;
+    timerElement.innerHTML = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    if (timeRemaining > 0) {
+        timeRemaining--;
+        setTimeout(updateTimer, 1000);
+    } else {
+        alert("Time's up! Submitting your quiz.");
+        submitQuiz(); // Automatically submit when time's up
+    }
+}
+
+// Function to start the quiz
+function startQuiz(chapter) {
+    quizTitle.innerHTML = `${chapter} Quiz`;
+    quizPage.style.display = 'block';
+    renderQuizQuestions();
+    updateTimer();
+}
+
+// Function to handle quiz submission
+function submitQuiz() {
+    let score = 0;
+
+    quizQuestions.forEach((item, index) => {
+        const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selectedOption && parseInt(selectedOption.value) === item.correct) {
+            score++;
+        }
+    });
+
+    alert(`Quiz Submitted! Your score is ${score} out of ${quizQuestions.length}`);
+}
+
+// Event listener for quiz form submission
+document.getElementById('quizForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    submitQuiz();
+});
+
+    </script>
+
+</body>
+</html>

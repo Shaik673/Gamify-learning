@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Puzzle – Number Grid Challenge</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .target {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0f7fa;
+            border: 2px solid #00796b;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00796b;
+            border-radius: 8px;
+        }
+        .number-blocks {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+        }
+        .number-block {
+            width: 80px;
+            height: 80px;
+            background-color: #00796b;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .number-block:hover {
+            background-color: #004d40;
+        }
+        .validate-btn {
+            padding: 12px 24px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .validate-btn:hover {
+            background-color: #004d40;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Math Puzzle – Number Grid Challenge</h1>
+        <p class="instructions">Drag the numbers into the grid so that each row and column sums to 15.</p>
+        <div class="target">Target Sum: 15</div>
+
+        <div class="grid" id="grid">
+          
+        </div>
+
+        <div class="number-blocks" id="numbers">
+            <div class="number-block" draggable="true" id="num1">4</div>
+            <div class="number-block" draggable="true" id="num2">3</div>
+            <div class="number-block" draggable="true" id="num3">8</div>
+            <div class="number-block" draggable="true" id="num4">7</div>
+            <div class="number-block" draggable="true" id="num5">5</div>
+            <div class="number-block" draggable="true" id="num6">6</div>
+            <div class="number-block" draggable="true" id="num7">1</div>
+            <div class="number-block" draggable="true" id="num8">9</div>
+            <div class="number-block" draggable="true" id="num9">2</div>
+        </div>
+
+        <button class="validate-btn" onclick="validateGrid()">Validate</button>
+
+        <div class="footer">
+            <p>&copy; 2025 Math Puzzle Challenge</p>
+        </div>
+    </div>
+
+    <script>
+        const grid = document.getElementById('grid');
+        const numbers = document.getElementById('numbers');
+        let draggedBlock = null;
+
+
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.setAttribute('data-id', i);
+            cell.addEventListener('dragover', handleDragOver);
+            cell.addEventListener('drop', handleDrop);
+            grid.appendChild(cell);
+        }
+
+        const numberBlocks = document.querySelectorAll('.number-block');
+        numberBlocks.forEach(block => {
+            block.addEventListener('dragstart', handleDragStart);
+            block.addEventListener('dragend', handleDragEnd);
+        });
+
+        function handleDragStart(e) {
+            draggedBlock = e.target;
+            setTimeout(() => {
+                draggedBlock.style.opacity = '0.5';
+            }, 0);
+        }
+
+        function handleDragEnd(e) {
+            draggedBlock.style.opacity = '1';
+            draggedBlock = null;
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const targetCell = e.target;
+            if (targetCell.classList.contains('cell') && !targetCell.hasChildNodes()) {
+                targetCell.appendChild(draggedBlock);
+            }
+        }
+
+       
+        function validateGrid() {
+            const cells = document.querySelectorAll('.cell');
+            const gridValues = Array.from(cells).map(cell => {
+                return cell.hasChildNodes() ? parseInt(cell.textContent) : null;
+            });
+
+          
+            let isValid = true;
+            for (let i = 0; i < 3; i++) {
+           
+                const rowSum = gridValues[i * 3] + gridValues[i * 3 + 1] + gridValues[i * 3 + 2];
+                if (rowSum !== 15) {
+                    isValid = false;
+                    break;
+                }
+            
+                const colSum = gridValues[i] + gridValues[i + 3] + gridValues[i + 6];
+                if (colSum !== 15) {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            if (isValid) {
+                alert('Well done! The grid is correct!');
+            } else {
+                alert('Oops! The grid is incorrect. Try again!');
+            }
+        }
+    </script>
+
+</body>
+</html>
+
